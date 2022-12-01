@@ -1,11 +1,10 @@
-import './App.css';
-import Operators from './components/Card';
-
+import './App.css'
+import Main from './components/Main';
 
 function App() {
   return (
     <div className="App">
-      <Operators/>
+      <Main/>
     </div>
   );
 }
