@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './Main.css'
 import { Button, Container, Form, FormControl, Nav, Navbar } from "react-bootstrap";
 
+
+//testing github actions
 function Main() {
     const MOVIE_LIST = "https://api.themoviedb.org/3/movie/popular?api_key=cb3cb19c5abc56e58cee53f0a43e3e7d"
 
