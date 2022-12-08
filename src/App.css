@@ -10,3 +10,9 @@ body{
     background: rgb(146, 150, 152);
      background-image: url("./assets/bg1.webp"); 
 }
+
+.LoginForm{
+    text-align: center;
+    font-size: larger;
+    
+}

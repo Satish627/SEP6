@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import MovieInfo from "./MovieInfo";
+import MovieInfo from "../MovieInfo";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './Main.css'
+import './Home.css'
 import { Button, Container, Form, FormControl, Nav, Navbar } from "react-bootstrap";
 
 
@@ -76,6 +76,7 @@ function Main() {
                     <h1 className="text">Sorry !!! No Movies Found</h1>
                 )}
             </div>
+            
         </div>
     );
 }

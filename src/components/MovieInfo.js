@@ -11,8 +11,7 @@ const MovieInfo = ({ title, poster_path, vote_average, release_date, overview })
     const handleClose = () => setShow(false);
     return (
         <div className="card text-center m-2 ">
-            <div></div>
-            <img className="card-img-top " src={IMG_API + poster_path} alt="some images" />
+             <img className="card-img-top " src={IMG_API + poster_path} alt="some images" />
 
             <div className="card-body " >
                 <div className="d-flex justify-content-between">
