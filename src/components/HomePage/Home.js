@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MovieInfo from "../MovieInfo";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './Home.css'
-import { Button, Container, Form, FormControl, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 
 //testing github actions
@@ -40,13 +40,25 @@ function Main() {
 
     return (
         <div>
-            <div>
+            <div className="justify-space-between">
                 <Navbar bg="dark" expand="lg" variant="dark" fixed="top">
                     <Container fluid>
                         <Navbar.Brand href="/home">BestMovies App</Navbar.Brand>
                         <Navbar.Toggle aria-controls="navbarScroll">
                         </Navbar.Toggle>
-
+                        <Nav>
+                            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+                                <NavDropdown.Item href="#action/3.1">Home</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">
+                                    Another action
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#action/3.4">
+                                    Separated link
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
                         <Navbar.Collapse id="navBarScroll">
                             <Nav className='me-auto my-2 my-lg-3' style={{ maxHeight: '100px' }} navbarScroll></Nav>
 
@@ -63,6 +75,9 @@ function Main() {
                                 <Button variant='secondary' type='submit'>Search</Button>
                             </Form>
                         </Navbar.Collapse>
+                        <Nav className="ms-4">
+                            <Nav.Link href="/login">Login</Nav.Link>
+                        </Nav>
                     </Container>
                 </Navbar>
             </div>
@@ -76,7 +91,7 @@ function Main() {
                     <h1 className="text">Sorry !!! No Movies Found</h1>
                 )}
             </div>
-            
+
         </div>
     );
 }
