@@ -43,6 +43,7 @@ function SignUpForm() {
             }
         } catch (err) {
             console.log(err);
+            
         }
     };
     return (
