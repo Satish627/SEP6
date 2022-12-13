@@ -76,7 +76,7 @@ function LoginForm() {
                                             </Form.Group>
                                             <Form.Group className="mb-3" >
                                                 <p className="small">
-                                                    <a className="text-primary" href="#">
+                                                    <a className="text-primary" href="/">
                                                         Forgot password?
                                                     </a>
                                                 </p>
