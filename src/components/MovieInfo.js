@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const IMG_API = "https://image.tmdb.org/t/p/w500";
 
-
+//nothing works
 const MovieInfo = ({ title, poster_path, vote_average, release_date, overview }) => {
     const [show, setShow] = useState(false);
 
