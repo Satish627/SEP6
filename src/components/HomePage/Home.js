@@ -48,13 +48,13 @@ function Main() {
                         </Navbar.Toggle>
                         <Nav>
                             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.1">Home</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">
+                                <NavDropdown.Item href="#">Home</NavDropdown.Item>
+                                <NavDropdown.Item href="#">
                                     Another action
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                                <NavDropdown.Item href="#">Something</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">
+                                <NavDropdown.Item href="#">
                                     Separated link
                                 </NavDropdown.Item>
                             </NavDropdown>
