@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MovieInfo from "../MovieInfo";
+import MovieInfo from "../MovieInfo/MovieInfo";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './Home.css'
 import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
@@ -46,20 +46,9 @@ function Main() {
                         <Navbar.Brand href="/home">BestMovies App</Navbar.Brand>
                         <Navbar.Toggle aria-controls="navbarScroll">
                         </Navbar.Toggle>
-                        <Nav>
-                            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                                <NavDropdown.Item href="#">Home</NavDropdown.Item>
-                                <NavDropdown.Item href="#">
-                                    Another action
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="#">Something</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#">
-                                    Separated link
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                        </Nav>
+
                         <Navbar.Collapse id="navBarScroll">
+
                             <Nav className='me-auto my-2 my-lg-3' style={{ maxHeight: '100px' }} navbarScroll></Nav>
 
                             <Form className="d-flex" onSubmit={searchMovie}>
@@ -74,10 +63,25 @@ function Main() {
                                 />
                                 <Button variant='secondary' type='submit'>Search</Button>
                             </Form>
+
+                            <Nav className="ms-4">
+                                <Nav.Link href="/login">Login</Nav.Link>
+                            </Nav>
+                            <Nav>
+                                <NavDropdown title="Menu" id="collasible-nav-dropdown">
+                                    <NavDropdown.Item href="#">Home</NavDropdown.Item>
+                                    <NavDropdown.Item href="#">
+                                        Another action
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href="#">Something</NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item href="#">
+                                        Separated link
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                            </Nav>
                         </Navbar.Collapse>
-                        <Nav className="ms-4">
-                            <Nav.Link href="/login">Login</Nav.Link>
-                        </Nav>
+
                     </Container>
                 </Navbar>
             </div>

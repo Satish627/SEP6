@@ -1,5 +1,7 @@
 import { Modal, Button } from "react-bootstrap";
 import React, { useState } from "react";
+import star from "../../assets/star.webp"
+import "./MovieInfo.css"
 
 const IMG_API = "https://image.tmdb.org/t/p/w500";
 
@@ -11,18 +13,23 @@ const MovieInfo = ({ title, poster_path, vote_average, release_date, overview })
     const handleClose = () => setShow(false);
     return (
         <div className="card text-center m-2 ">
-             <img className="card-img-top " src={IMG_API + poster_path} alt="some images" />
+            <img className="card-img-top " src={IMG_API + poster_path} alt="some images" />
 
             <div className="card-body " >
                 <div className="d-flex justify-content-between">
-                    <h4 className="mr-auto">{title}</h4>
-                    <h5  >{vote_average}</h5>
+                    <h5 className="me-5 ">{title}</h5>
+                    <div className="d-flex">
+                        <img src={star} alt="rating" className="star"></img>
+                        <h5 className="ms-2">{vote_average}</h5>
 
-
+                    </div>
                 </div>
-                    
-                <Button type="button" className="btn btn-warning" onClick={handleShow}>
+
+                <Button type="button" className="btn btn-warning mt-2 me-2" onClick={handleShow}>
                     Show more
+                </Button>
+                <Button type="button" className="btn btn-warning mt-2" >
+                    Add to favorites 
                 </Button>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
@@ -33,7 +40,11 @@ const MovieInfo = ({ title, poster_path, vote_average, release_date, overview })
                     <Modal.Body>
                         <h3 className="mt-2">{title}</h3>
                         <h4>Release Date: {release_date}</h4>
-                        <h5>Rating : {vote_average}</h5>
+                        <div className="d-flex">
+                            <img src={star} alt="rating" className="star"></img>
+                            <h5 className="ms-2">{vote_average}</h5>
+
+                        </div>
                         <br></br>
                         <h6>Description </h6>
                         <p>{overview}</p>
