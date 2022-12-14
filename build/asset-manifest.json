@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/SEP6_Frontend/static/css/main.9601efe8.css",
+    "main.js": "/SEP6_Frontend/static/js/main.50e17981.js",
+    "static/media/bg1.webp": "/SEP6_Frontend/static/media/bg1.23c177e1cea8af3919b8.webp",
+    "index.html": "/SEP6_Frontend/index.html",
+    "main.9601efe8.css.map": "/SEP6_Frontend/static/css/main.9601efe8.css.map",
+    "main.50e17981.js.map": "/SEP6_Frontend/static/js/main.50e17981.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9601efe8.css",
+    "static/js/main.50e17981.js"
+  ]
+}
