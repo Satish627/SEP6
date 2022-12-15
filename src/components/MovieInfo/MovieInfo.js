@@ -15,7 +15,7 @@ const MovieInfo = ({ title, poster_path, vote_average, release_date, overview })
             <img className="card-img-top " src={IMG_API + poster_path} alt="some images" />
 
             <div className="card-body " >
-                <div className="d-flex-col justify-content-between">
+                <div className="d-flex-col justify-content-between " >
                     <div className="d-flex justify-content-around">
                         <h5>{title}</h5>
                         <div className="d-flex">
@@ -44,7 +44,7 @@ const MovieInfo = ({ title, poster_path, vote_average, release_date, overview })
                         <h3 className="mt-2">{title}</h3>
                         <h4>Release Date: {release_date}</h4>
                         <div className="d-flex justify-content">
-                            <img src={star} alt="rating" style={{width:20, height:20}}></img>
+                            <img src={star} alt="rating" style={{ width: 20, height: 20 }}></img>
                             <h5 className="ms-2">{vote_average}</h5>
 
                         </div>

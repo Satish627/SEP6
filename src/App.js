@@ -4,6 +4,7 @@ import Home from './components/HomePage/Home';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import SignUpForm from './components/SignUpPage/SignUpForm';
 
+
 function App() {
   return (
     <div className="LoginForm">
@@ -12,7 +13,6 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/" element={<Home />} />
-
         </Routes>
       </BrowserRouter>
     </div>

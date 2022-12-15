@@ -2,33 +2,39 @@ import React, { useState } from "react";
 import MovieInfo from "../MovieInfo/MovieInfo";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './Home.css'
-import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Button, Container, Form, FormControl, Nav, Navbar } from "react-bootstrap";
+import Filter from "./Filter";
 
-
-//testing github actions
-function Main() {
+function Home() {
     const MOVIE_LIST = "https://api.themoviedb.org/3/movie/popular?api_key=cb3cb19c5abc56e58cee53f0a43e3e7d"
 
-    const [movies, setMovies] = useState([]);
-    useState(() => {
-        fetch(MOVIE_LIST)
-            .then((res) => res.json())
-            .then(data => {
-                console.log(data)
-                setMovies(data.results)
-            })
+    const [popular, setPopular] = useState([]);
+    const [filtered, setFiltered] = useState([]);
+    const [activeGenre, setActiveGenre] = useState(0);
 
+   
+    const fetchMovies = async () => {
+        const res = await fetch(MOVIE_LIST);
+        const data = await res.json();
+        console.log(data);
+        setPopular(data.results);
+        setFiltered(data.results);
+
+    }
+    useState(() => {
+        fetchMovies();
     }, [])
+    
     const [query, setQuery] = useState('');
     const searchMovie = async (e) => {
         e.preventDefault();
         console.log("Searching")
         try {
-            const url = `https://api.themoviedb.org/3/search/movie?api_key=cb3cb19c5abc56e58cee53f0a43e3e7d&query=${query}`
-            const res = await fetch(url);
+            const SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=cb3cb19c5abc56e58cee53f0a43e3e7d&query=${query}`
+            const res = await fetch(SEARCH_URL);
             const data = await res.json();
             console.log(data);
-            setMovies(data.results)
+            setFiltered(data.results)
         }
         catch (e) {
             console.log(e)
@@ -63,32 +69,22 @@ function Main() {
                                 />
                                 <Button variant='secondary' type='submit'>Search</Button>
                             </Form>
-
                             <Nav className="ms-4">
                                 <Nav.Link href="/login">Login</Nav.Link>
-                            </Nav>
-                            <Nav>
-                                <NavDropdown title="Menu" id="collasible-nav-dropdown">
-                                    <NavDropdown.Item href="#">Home</NavDropdown.Item>
-                                    <NavDropdown.Item href="#">
-                                        Another action
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="#">Something</NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item href="#">
-                                        Separated link
-                                    </NavDropdown.Item>
-                                </NavDropdown>
                             </Nav>
                         </Navbar.Collapse>
 
                     </Container>
                 </Navbar>
+                <Filter popuLar={popular} 
+                setFiltered={setFiltered} 
+                activeGenre={activeGenre} 
+                setActiveGenre={setActiveGenre} />
             </div>
             <div className="map">
-                {movies.length > 0 ? (<div className="container">
+                {popular.length > 0 ? (<div className="container">
                     <div className="grid">
-                        {movies.map((item) => <MovieInfo key={item.id}{...item} />)}
+                        {filtered?.map((movie) => <MovieInfo key={movie.id} {...movie} />)}
 
                     </div>
                 </div>) : (
@@ -99,4 +95,4 @@ function Main() {
         </div>
     );
 }
-export default Main;
+export default Home;
