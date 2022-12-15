@@ -14,7 +14,6 @@ function LoginForm() {
     });
 
     const [errorMsg, setErrorMsg] = useState("")
-    const [submitDisabled, setSubmitDisabled] = useState(false)
 
     const handleSubmission = () => {
         if (!values.email || !values.password) {
@@ -26,13 +25,11 @@ function LoginForm() {
         // console.log(values)
         signInWithEmailAndPassword(auth, values.email, values.password)
             .then((res) => {
-                setSubmitDisabled(false)
                 
                 navigate("/home")
             })
             .catch((err) => {
 
-                setSubmitDisabled(true);
                 setErrorMsg(err.message)
             })
     };
