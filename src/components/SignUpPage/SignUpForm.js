@@ -2,41 +2,45 @@ import React, { useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import app from "../../Firebase";
-
+import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
 
-
+    const navigate = useNavigate();
     const auth = getAuth(app);
+    const [values, setValues] = useState({
+        email: "",
+        password: "",
+    });
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [errorMsg, setErrorMsg] = useState("")
+    const [submitDisabled, setSubmitDisabled] = useState(false)
 
-
-    const handleEmailChange = event => {
-        setEmail(event.target.value)
-    };
-    const handlePasswordChange = event => {
-        setPassword(event.target.value)
-    };
-
-
-
-    const SignIn =  () => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
+    const handleSubmission = () => {
+        if (!values.email || !values.password) {
+            setErrorMsg("Fill in all the fields")
+            setSubmitDisabled(true)
+            return
+        }
+        setErrorMsg("");
+        // console.log(values)
+        createUserWithEmailAndPassword(auth, values.email, values.password)
+            .then( (res) => {
+                setSubmitDisabled(false)
+                const user = res.user;
                 console.log(user)
-                alert("User created")
+                //alert("User created successfully!!!")
+                navigate("/")
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                console.log(errorCode)
-            });
+            .catch((err) => {
+
+                setSubmitDisabled(true);
+                setErrorMsg(err.message)
+            })
     };
     return (
         <div>
-            { <Container>
+            {<Container>
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
                     <Col md={8} lg={6} xs={12}>
                         <Card className="shadow">
@@ -45,7 +49,7 @@ function SignUpForm() {
                                     <h2 className="fw-bold mb-2 text-uppercase ">Sign up here!!!</h2>
                                     <p className=" mb-5">Please enter a username and password!</p>
                                     <div className="mb-2">
-                                        { <Form onClick={SignIn}>
+                                        {<Form >
                                             <Form.Group className="mb-3">
                                                 <Form.Label>
                                                     Email address
@@ -53,8 +57,9 @@ function SignUpForm() {
                                                 <Form.Control type="email"
                                                     name="email"
                                                     placeholder="Enter email"
-                                                    onChange={handleEmailChange}
-                                                    value={email} />
+                                                    onChange={(event) =>
+                                                        setValues((prev) => ({ ...prev, email: event.target.value }))
+                                                    } />
                                             </Form.Group>
 
                                             <Form.Group className="mb-3">
@@ -62,20 +67,22 @@ function SignUpForm() {
                                                 <Form.Control type="password"
                                                     name="password"
                                                     placeholder="Enter your password"
-                                                    onChange={handlePasswordChange}
-                                                    value={password} />
+                                                    onChange={(event) =>
+                                                        setValues((prev) => ({ ...prev, password: event.target.value }))
+                                                    } />
                                             </Form.Group>
+                                            <b>{errorMsg}</b>
                                             <div className="d-grid">
-                                                <Button variant="secondary" type="submit" >
+                                                <Button variant="secondary" onClick={handleSubmission} disabled={submitDisabled}>
                                                     Signup
                                                 </Button>
                                             </div>
-                                        </Form> }
-                                       
+                                        </Form>}
+
                                         <div className="mt-3">
                                             <p className="mb-0  text-center">
                                                 Already registered!
-                                                <a href="/login" className="text-primary fw-bold ms-2">
+                                                <a href="/" className="text-primary fw-bold ms-2">
                                                     Login here                                                </a>
                                             </p>
                                         </div>
@@ -85,8 +92,8 @@ function SignUpForm() {
                         </Card>
                     </Col>
                 </Row>
-            </Container> }
-          
+            </Container>}
+
         </div>
     )
 }

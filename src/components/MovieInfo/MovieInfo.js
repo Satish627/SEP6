@@ -24,9 +24,6 @@ const MovieInfo = ({ title, poster_path, vote_average, release_date, overview })
 
                         </div>
                     </div>
-
-
-
                     <Button type="button" className="btn btn-warning mt-2 me-2" onClick={handleShow}>
                         Show more
                     </Button>

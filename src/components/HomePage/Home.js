@@ -69,7 +69,7 @@ function Home() {
                                 <Button variant='secondary' type='submit'>Search</Button>
                             </Form>
                             <Nav className="ms-4">
-                                <Nav.Link href="/login">Login</Nav.Link>
+                                <Nav.Link href="/">Login</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
 

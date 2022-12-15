@@ -2,34 +2,41 @@ import React, { useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../../Firebase";
+import { useNavigate } from "react-router-dom";
 
 
 function LoginForm() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
+    const navigate = useNavigate();
     const auth = getAuth(app);
+    const [values, setValues] = useState({
+        email: "",
+        password: "",
+    });
 
-    const handleSubmit =  () => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                console.log(user)
-                alert("User logged in")
+    const [errorMsg, setErrorMsg] = useState("")
+    const [submitDisabled, setSubmitDisabled] = useState(false)
+
+    const handleSubmission = () => {
+        if (!values.email || !values.password) {
+            setErrorMsg("Fill in all the fields")
+            setSubmitDisabled(true)
+            return
+        }
+        setErrorMsg("");
+        // console.log(values)
+        signInWithEmailAndPassword(auth, values.email, values.password)
+            .then((res) => {
+                setSubmitDisabled(false)
+                
+                navigate("/home")
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                alert(errorCode)
-            });
+            .catch((err) => {
+
+                setSubmitDisabled(true);
+                setErrorMsg(err.message)
+            })
     };
 
-    const handleEmailChange = event => {
-        setEmail(event.target.value)
-    };
-    const handlePasswordChange = event => {
-        setPassword(event.target.value)
-    };
 
 
     return (
@@ -43,7 +50,8 @@ function LoginForm() {
                                     <h2 className="fw-bold mb-2 text-uppercase ">Login</h2>
                                     <p className=" mb-5">Please enter your username and password!</p>
                                     <div className="mb-2">
-                                        <Form onSubmit={handleSubmit}>
+                                        <Form >
+
                                             <Form.Group className="mb-3">
                                                 <Form.Label>
                                                     Email address
@@ -51,8 +59,9 @@ function LoginForm() {
                                                 <Form.Control type="email"
                                                     name="email"
                                                     placeholder="Enter email"
-                                                    onChange={handleEmailChange}
-                                                    value={email} />
+                                                    onChange={(event) =>
+                                                        setValues((prev) => ({ ...prev, email: event.target.value }))
+                                                    } />
                                             </Form.Group>
 
                                             <Form.Group className="mb-3">
@@ -60,8 +69,9 @@ function LoginForm() {
                                                 <Form.Control type="password"
                                                     name="password"
                                                     placeholder="Enter password"
-                                                    onChange={handlePasswordChange}
-                                                    value={password} />
+                                                    onChange={(event) =>
+                                                        setValues((prev) => ({ ...prev, password: event.target.value }))
+                                                    } />
                                             </Form.Group>
                                             <Form.Group className="mb-3" >
                                                 <p className="small">
@@ -70,8 +80,9 @@ function LoginForm() {
                                                     </a>
                                                 </p>
                                             </Form.Group>
+                                            <b>{errorMsg}</b>
                                             <div className="d-grid">
-                                                <Button variant="secondary" type="submit">
+                                                <Button variant="secondary" onClick={handleSubmission}>
                                                     Login
                                                 </Button>
                                             </div>
