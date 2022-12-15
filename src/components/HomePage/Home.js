@@ -76,10 +76,10 @@ function Home() {
 
                     </Container>
                 </Navbar>
-                <Filter popuLar={popular} 
+                {/* <Filter popuLar={popular} 
                 setFiltered={setFiltered} 
                 activeGenre={activeGenre} 
-                setActiveGenre={setActiveGenre} />
+                setActiveGenre={setActiveGenre} /> */}
             </div>
             <div className="map">
                 {popular.length > 0 ? (<div className="container">
