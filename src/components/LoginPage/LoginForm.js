@@ -1,11 +1,29 @@
 import React, { useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import app from "../../Firebase";
+
 
 function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    //const url = 'https://jsonplaceholder.typicode.com/posts'
-    const url = 'https://httpbin.org/post'
+
+    const auth = getAuth(app);
+
+    const handleSubmit =  () => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                console.log(user)
+                alert("User logged in")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                alert(errorCode)
+            });
+    };
+
     const handleEmailChange = event => {
         setEmail(event.target.value)
     };
@@ -13,36 +31,7 @@ function LoginForm() {
         setPassword(event.target.value)
     };
 
-    async function loginUser(credentials) {
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        })
-            .then(data => data.json())
-    }
-    let handleSubmit = async (e) => {
-        e.preventDefault();
-        const response = await loginUser({
-            email,
-            password
-        });
-        if ('accessToken' in response) {
-            console.log("Success", response.message, "success", {
-                buttons: false,
-                timer: 2000,
-            })
-                .then((value) => {
-                    localStorage.setItem('accessToken', response['accessToken']);
-                    localStorage.setItem('user', JSON.stringify(response['user']));
-                    window.location.href = "/home";
-                });
-        } else {
-            console.log("Failed", response.message, "error");
-        }
-    };
+
     return (
         <div className="Login">
             {<Container>

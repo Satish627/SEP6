@@ -7,12 +7,12 @@ import SignUpForm from './components/SignUpPage/SignUpForm';
 
 function App() {
   return (
-    <div className="LoginForm">
+    <div >
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/" element={<LoginForm />} />
           <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

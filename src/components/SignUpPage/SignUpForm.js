@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import app from "../../Firebase";
 
 
 function SignUpForm() {
+
+
+    const auth = getAuth(app);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [conPassword, setConPassword] = useState("");
 
-   const url = 'https://httpbin.org/post'
 
     const handleEmailChange = event => {
         setEmail(event.target.value)
@@ -16,39 +20,23 @@ function SignUpForm() {
         setPassword(event.target.value)
     };
 
-    const handleConPasswordChange = event => {
-        setConPassword(event.target.value)
-    };
 
-    let handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            let res = await fetch(url, {
-                method: "POST",
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                    confirmPassword : conPassword,
-                }),
+
+    const SignIn =  () => {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user)
+                alert("User created")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                console.log(errorCode)
             });
-            let resJson = await res.json();
-            console.log(resJson)
-            if (res.status === 200) {
-                setEmail("");
-                setPassword("");
-                setConPassword("");
-                console.log("User signed up successfully");
-            } else {
-                console.log("Error occured while signing up");
-            }
-        } catch (err) {
-            console.log(err);
-            
-        }
     };
     return (
         <div>
-            <Container>
+            { <Container>
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
                     <Col md={8} lg={6} xs={12}>
                         <Card className="shadow">
@@ -57,7 +45,7 @@ function SignUpForm() {
                                     <h2 className="fw-bold mb-2 text-uppercase ">Sign up here!!!</h2>
                                     <p className=" mb-5">Please enter a username and password!</p>
                                     <div className="mb-2">
-                                        <Form onSubmit={handleSubmit}>
+                                        { <Form onClick={SignIn}>
                                             <Form.Group className="mb-3">
                                                 <Form.Label>
                                                     Email address
@@ -65,7 +53,7 @@ function SignUpForm() {
                                                 <Form.Control type="email"
                                                     name="email"
                                                     placeholder="Enter email"
-                                                    onChange={ handleEmailChange }
+                                                    onChange={handleEmailChange}
                                                     value={email} />
                                             </Form.Group>
 
@@ -75,22 +63,15 @@ function SignUpForm() {
                                                     name="password"
                                                     placeholder="Enter your password"
                                                     onChange={handlePasswordChange}
-                                                    value={password}/>
-                                            </Form.Group>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label>Confirm Password</Form.Label>
-                                                <Form.Control type="password"
-                                                    name="conPassword"
-                                                    placeholder="Repeat your password"
-                                                    onChange={handleConPasswordChange}
-                                                    value={conPassword} />
+                                                    value={password} />
                                             </Form.Group>
                                             <div className="d-grid">
-                                                <Button variant="secondary" type="submit">
+                                                <Button variant="secondary" type="submit" >
                                                     Signup
                                                 </Button>
                                             </div>
-                                        </Form>
+                                        </Form> }
+                                       
                                         <div className="mt-3">
                                             <p className="mb-0  text-center">
                                                 Already registered!
@@ -104,7 +85,8 @@ function SignUpForm() {
                         </Card>
                     </Col>
                 </Row>
-            </Container>
+            </Container> }
+          
         </div>
     )
 }
