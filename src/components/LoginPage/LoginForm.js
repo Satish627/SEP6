@@ -18,7 +18,6 @@ function LoginForm() {
     const handleSubmission = () => {
         if (!values.email || !values.password) {
             setErrorMsg("Fill in all the fields")
-            setSubmitDisabled(true)
             return
         }
         setErrorMsg("");
