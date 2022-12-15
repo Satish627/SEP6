@@ -3,14 +3,13 @@ import MovieInfo from "../MovieInfo/MovieInfo";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './Home.css'
 import { Button, Container, Form, FormControl, Nav, Navbar } from "react-bootstrap";
-import Filter from "./Filter";
 
 function Home() {
     const MOVIE_LIST = "https://api.themoviedb.org/3/movie/popular?api_key=cb3cb19c5abc56e58cee53f0a43e3e7d"
 
     const [popular, setPopular] = useState([]);
     const [filtered, setFiltered] = useState([]);
-    const [activeGenre, setActiveGenre] = useState(0);
+    //const [activeGenre, setActiveGenre] = useState(0);
 
    
     const fetchMovies = async () => {
